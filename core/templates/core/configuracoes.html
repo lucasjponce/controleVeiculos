@@ -1,7 +1,16 @@
 {% extends 'core/base.html' %}
+{% load static %}
 {% block title %}Configurações{% endblock %}
+
 {% block content %}
-<h1>Configurações</h1>
-<p>Área para gerenciar configurações do sistema.</p>
-<!-- Aqui você pode adicionar formulários ou links para gerenciar usuários, etc. -->
+<div class="LOGIN">
+    <div class="div">
+        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
+        <div class="content">
+            <div class="text-wrapper">Configurações</div>
+            <p>Aqui você pode gerenciar as configurações do sistema.</p>
+            <!-- Adicione formulários ou links para gerenciar usuários e outras configurações -->
+        </div>
+    </div>
+</div>
 {% endblock %}

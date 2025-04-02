@@ -10,6 +10,7 @@
     <!-- Menu de navegação (pode incluir links para as páginas) -->
     <nav>
       <ul>
+        <li><a href="{% url 'login' %}">Login</a></li>
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
         <li><a href="{% url 'cadastro_veiculo' %}">Cadastro de Veículos</a></li>
         <li><a href="{% url 'registro' %}">Registro</a></li>
@@ -21,6 +22,7 @@
     
     <div class="content-container">
         {% block content %}
+        <!-- Cada template que estender o base.html vai inserir seu conteúdo aqui -->
         {% endblock %}
     </div>
     

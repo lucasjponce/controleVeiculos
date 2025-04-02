@@ -1,20 +1,18 @@
 {% extends 'core/base.html' %}
+{% load static %}
 {% block title %}Dashboard{% endblock %}
+
 {% block content %}
-<h1>Dashboard</h1>
-<!-- Exiba estatísticas e gráficos (você pode integrar Chart.js, por exemplo) -->
-<div class="dashboard-cards">
-    <div class="card">
-        <h2>Total de Veículos</h2>
-        <p>{{ total_veiculos }}</p>
-    </div>
-    <div class="card">
-        <h2>Entradas Hoje</h2>
-        <p>{{ entradas_hoje }}</p>
-    </div>
-    <div class="card">
-        <h2>Saídas Hoje</h2>
-        <p>{{ saidas_hoje }}</p>
+<div class="LOGIN">
+    <div class="div">
+        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
+        <div class="content">
+            <div class="text-wrapper">Dashboard</div>
+            <p>Total de Veículos: {{ total_veiculos }}</p>
+            <p>Entradas Hoje: {{ entradas_hoje }}</p>
+            <p>Saídas Hoje: {{ saidas_hoje }}</p>
+            <!-- Você pode adicionar gráficos ou outras informações aqui -->
+        </div>
     </div>
 </div>
 {% endblock %}
