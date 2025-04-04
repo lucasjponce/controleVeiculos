@@ -1,10 +1,42 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-class Usuario(models.Model):
-    cpf = models.CharField(max_length=14, primary_key=True)  # Ex: 000.000.000-00
-    senha = models.CharField(max_length=128)
-    papel = models.CharField(max_length=50)  # Ex: Administrador, Operador
+
+#class Usuario(models.Model):
+#    cpf = models.CharField(max_length=14, primary_key=True)  # Ex: 000.000.000-00
+#    senha = models.CharField(max_length=128)
+#    papel = models.CharField(max_length=50)  # Ex: Administrador, Operador
+#    funcao = models.CharField(max_length=100)
+
+#    def __str__(self):
+#        return self.cpf
+
+class UsuarioManager(BaseUserManager):
+    def create_user(self, cpf, password=None, **extra_fields):
+        if not cpf:
+            raise ValueError("O CPF deve ser informado")
+        user = self.model(cpf=cpf, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, cpf, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(cpf, password, **extra_fields)
+
+class Usuario(AbstractBaseUser, PermissionsMixin):
+    cpf = models.CharField(max_length=14, unique=True, primary_key=True)
+    password = models.CharField(max_length=128)  # Use "password" aqui
+    papel = models.CharField(max_length=50)
     funcao = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    
+    objects = UsuarioManager()
+
+    USERNAME_FIELD = 'cpf'
+    REQUIRED_FIELDS = ['papel', 'funcao']
 
     def __str__(self):
         return self.cpf

@@ -127,3 +127,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Modelo Customizado:
+#Se estiver utilizando um modelo de usuário customizado (por exemplo, com cpf como identificador), defina em seu settings.py:
+
+AUTH_USER_MODEL = 'core.Usuario'

@@ -26,21 +26,21 @@ class UsuarioCadastroForm(forms.ModelForm):
     
     class Meta:
         model = Usuario
-        fields = ['cpf', 'senha', 'papel', 'funcao']
+        fields = ['cpf', 'password', 'papel', 'funcao']
         widgets = {
-            'senha': forms.PasswordInput,
+            'password': forms.PasswordInput,
         }
         labels = {
             'cpf': 'CPF',
-            'senha': 'Senha',
+            'password': 'Password',
             'papel': 'Papel',
             'funcao': 'Função',
         }
 
     def clean(self):
         cleaned_data = super().clean()
-        senha = cleaned_data.get("senha")
-        senha2 = cleaned_data.get("senha2")
+        senha= cleaned_data.get("password")
+        senha2 = cleaned_data.get("password2")
         if senha and senha2 and senha != senha2:
-            self.add_error('senha2', "As senhas não conferem!")
+            self.add_error('password2', "As senhas não conferem!")
         return cleaned_data

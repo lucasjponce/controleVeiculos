@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import VeiculoForm, RegistroForm, UsuarioCadastroForm
+from django.contrib.auth.hashers import make_password
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
@@ -22,11 +23,12 @@ def login_view(request):
     if request.method == "POST":
         cpf = request.POST.get('cpf')
         senha = request.POST.get('senha')
-        # Aqui você pode fazer a autenticação, por exemplo, usando o sistema de autenticação do Django
+        # Autenticação usando o sistema de autenticação do Django
+        # O parâmetro 'username' será comparado com o campo definido como USERNAME_FIELD no seu modelo de usuário.
         user = authenticate(request, username=cpf, password=senha)
         if user is not None:
             login(request, user)
-            return redirect('dashboard')
+            return redirect('dashboard') # mudar a pagina
         else:
             error = "CPF ou senha inválidos."
             return render(request, 'core/login.html', {'error': error})
@@ -84,8 +86,10 @@ def cadastro_usuario_view(request):
         if form.is_valid():
             # Salve o usuário. Você pode querer aplicar hash na senha, se necessário.
             usuario = form.save(commit=False)
-            # Exemplo: utilizando set_password, se o modelo herdar de AbstractBaseUser
-            # usuario.set_password(form.cleaned_data['senha'])
+            # utilizando set_password, o modelo herda de AbstractBaseUser
+            usuario.set_password(form.cleaned_data['password'])
+            #utilizando o make_password para hashear a senha
+            #usuario.password = make_password(form.cleaned_data['senha'])
             usuario.save()
             return redirect('login')  # Redireciona para a página de login após o cadastro
     else:
