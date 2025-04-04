@@ -1,5 +1,5 @@
 from django import forms
-from .models import Veiculo, Registro
+from .models import Veiculo, Registro, Usuario
 
 class VeiculoForm(forms.ModelForm):
     class Meta:
@@ -20,3 +20,27 @@ class RegistroForm(forms.ModelForm):
             'tipo': forms.Select(choices=[('Entrada', 'Entrada'), ('Saída', 'Saída')]),
             'observacoes': forms.Textarea(attrs={'placeholder': 'Observações'}),
         }
+        
+class UsuarioCadastroForm(forms.ModelForm):
+    senha2 = forms.CharField(widget=forms.PasswordInput, label="Confirme a Senha")
+    
+    class Meta:
+        model = Usuario
+        fields = ['cpf', 'senha', 'papel', 'funcao']
+        widgets = {
+            'senha': forms.PasswordInput,
+        }
+        labels = {
+            'cpf': 'CPF',
+            'senha': 'Senha',
+            'papel': 'Papel',
+            'funcao': 'Função',
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        senha = cleaned_data.get("senha")
+        senha2 = cleaned_data.get("senha2")
+        if senha and senha2 and senha != senha2:
+            self.add_error('senha2', "As senhas não conferem!")
+        return cleaned_data

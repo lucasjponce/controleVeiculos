@@ -4,7 +4,7 @@ from .serializers import UsuarioSerializer, VeiculoSerializer, RegistroSerialize
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import VeiculoForm, RegistroForm
+from .forms import VeiculoForm, RegistroForm, UsuarioCadastroForm
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
@@ -77,3 +77,17 @@ def historico_view(request):
 
 def configuracoes_view(request):
     return render(request, 'core/configuracoes.html')
+
+def cadastro_usuario_view(request):
+    if request.method == "POST":
+        form = UsuarioCadastroForm(request.POST)
+        if form.is_valid():
+            # Salve o usuário. Você pode querer aplicar hash na senha, se necessário.
+            usuario = form.save(commit=False)
+            # Exemplo: utilizando set_password, se o modelo herdar de AbstractBaseUser
+            # usuario.set_password(form.cleaned_data['senha'])
+            usuario.save()
+            return redirect('login')  # Redireciona para a página de login após o cadastro
+    else:
+        form = UsuarioCadastroForm()
+    return render(request, 'core/cadastro_usuario.html', {'form': form})
