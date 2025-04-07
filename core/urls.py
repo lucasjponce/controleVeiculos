@@ -12,4 +12,5 @@ urlpatterns = [
     path('historico/', views.historico_view, name='historico'),
     path('configuracoes/', views.configuracoes_view, name='configuracoes'),
     path('cadastro-usuario/', views.cadastro_usuario_view, name='cadastro_usuario'),
+    path('menu/', views.menu_view, name='menu'),
 ]

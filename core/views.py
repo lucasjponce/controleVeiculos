@@ -28,7 +28,7 @@ def login_view(request):
         user = authenticate(request, username=cpf, password=senha)
         if user is not None:
             login(request, user)
-            return redirect('dashboard') # mudar a pagina
+            return redirect('menu') # mudar a pagina
         else:
             error = "CPF ou senha inválidos."
             return render(request, 'core/login.html', {'error': error})
@@ -49,6 +49,11 @@ def dashboard_view(request):
         'saidas_hoje': saidas_hoje,
     }
     return render(request, 'core/dashboard.html', context)
+
+def menu_view(request):
+    if request.method == "POST":
+        return redirect('registro')
+
 
 def cadastro_veiculo_view(request):
     if request.method == "POST":
@@ -79,6 +84,9 @@ def historico_view(request):
 
 def configuracoes_view(request):
     return render(request, 'core/configuracoes.html')
+
+def menu_view(request):
+    return render(request, 'core/menu.html')
 
 def cadastro_usuario_view(request):
     if request.method == "POST":

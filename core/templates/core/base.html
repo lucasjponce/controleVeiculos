@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <title>{% block title %}Controle de Veículos{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
 </head>
 <body>
-    <!-- Menu de navegação (pode incluir links para as páginas) -->
+    <!-- Menu de navegação (pode incluir links para as páginas) 
     <nav>
       <ul>
         <li><a href="{% url 'login' %}">Login</a></li>
@@ -18,7 +19,7 @@
         <li><a href="{% url 'configuracoes' %}">Configurações</a></li>
         <li><a href="{% url 'logout' %}">Sair</a></li>
       </ul>
-    </nav>
+    </nav> -->
     
     <div class="content-container">
         {% block content %}
