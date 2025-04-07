@@ -10,7 +10,7 @@
         <div class="content">
             <div class="text-wrapper">Bem-vindo</div>
             {% if error %}
-                <p style="color: red;">{{ error }}</p>
+                <p style="color: rgb(251, 255, 0);">{{ error }}</p>
             {% endif %}
             <form method="post">
                 {% csrf_token %}
@@ -21,10 +21,10 @@
                     <input type="password" name="senha" placeholder="Senha" required>
                 </div>
                 <button type="submit" class="button-box">
-                    <span>Entrar</span>
+                    <span>ENTRAR</span>
                 </button>
             </form>
-            <p>Ainda não possui cadastro? <a href="{% url 'cadastro_usuario' %}">Cadastre-se aqui</a>.</p>
+            <p style="color: aliceblue;">Ainda não possui cadastro? <a href="{% url 'cadastro_usuario' %}" style="color: rgb(251, 255, 0)">Cadastre-se aqui</a>.</p>
         </div>
         </div>
     </div>
