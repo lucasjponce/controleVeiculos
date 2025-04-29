@@ -59,6 +59,10 @@ def cadastro_veiculo_view(request):
     if request.method == "POST":
         form = VeiculoForm(request.POST)
         if form.is_valid():
+            modelo_predefinido = form.cleaned_data.get('modelo_predefinido')
+            if modelo_predefinido:
+                form.instance.marca = modelo_predefinido.marca
+                form.instance.modelo = modelo_predefinido.modelo
             form.save()
             return redirect('dashboard')
     else:

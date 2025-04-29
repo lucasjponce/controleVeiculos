@@ -6,6 +6,8 @@
     <title>{% block title %}Controle de Veículos{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
     <!-- Menu de navegação (pode incluir links para as páginas) 
@@ -31,5 +33,36 @@
     <footer>
         <p>© 2025 Controle de Veículos</p>
     </footer>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const selectVeiculo = document.getElementById('id_veiculo_predefinido');
+    if (selectVeiculo) {  // Verifica se está na página certa
+        const marcaInput = document.getElementById('id_marca');
+        const modeloInput = document.getElementById('id_modelo');
+
+        // Inicializa Select2 no select de veículos
+        $(selectVeiculo).select2({
+            placeholder: "Selecione um veículo",
+            allowClear: true,
+            width: '100%'
+        });
+
+        selectVeiculo.addEventListener('change', function () {
+            const selected = this.value;
+            if (selected) {
+                const [marca, modelo] = selected.split('-');
+                marcaInput.value = marca.trim();
+                modeloInput.value = modelo.trim();
+            } else {
+                marcaInput.value = '';
+                modeloInput.value = '';
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>

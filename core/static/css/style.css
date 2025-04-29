@@ -145,3 +145,26 @@
     font-size: 3rem; /* Utilizando rem para escalabilidade */
     margin-bottom: 20px;
 }
+
+input[type="text"], select, textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    box-sizing: border-box;
+    background-color: #252525;
+    color: #fff;
+    font-size: 16px;
+}
+
+select {
+    background-color: #252525;
+    color: #ffffff;
+}
+
+select option {
+    background-color: #252525;
+    color: #ffffff;
+}
