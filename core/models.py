@@ -44,13 +44,14 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 class Veiculo(models.Model):
     id = models.AutoField(primary_key=True)
     placa = models.CharField(max_length=10, unique=True)
+    proprietario = models.CharField(max_length=100)
     marca = models.CharField(max_length=50)
     modelo = models.CharField(max_length=50)
-    origem = models.CharField(max_length=50)
+    # campo origem removido
 
     def __str__(self):
-        return self.placa
-
+        return f"{self.placa} - {self.proprietario}"
+    
 class Registro(models.Model):
     id = models.AutoField(primary_key=True)
     data_hora = models.DateTimeField(auto_now_add=True)

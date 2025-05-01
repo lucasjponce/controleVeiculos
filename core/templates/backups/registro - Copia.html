@@ -1,22 +1,18 @@
 {% extends 'core/base.html' %}
-{% block title %}Login{% endblock %}
-{% block content %}
 {% load static %}
+{% block title %}Registro de Entrada/Saída{% endblock %}
+
+{% block content %}
 <div class="LOGIN">
     <div class="div">
         <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
         <div class="content">
-            <div class="text-wrapper">Bem-vindo</div>
+            <div class="text-wrapper">Registro de Entrada/Saída</div>
             <form method="post">
                 {% csrf_token %}
-                <div class="input-box">
-                    <input type="text" name="cpf" placeholder="CPF" required>
-                </div>
-                <div class="input-box">
-                    <input type="password" name="senha" placeholder="Senha" required>
-                </div>
+                {{ form.as_p }}
                 <button type="submit" class="button-box">
-                    <span>Teste</span>
+                    <span>Registrar</span>
                 </button>
             </form>
         </div>

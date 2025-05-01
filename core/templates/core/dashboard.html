@@ -1,28 +1,15 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block title %}Dashboard{% endblock %}
-
 {% block content %}
-<div class="DASHBOARD">
-    <div class="div">
-        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
-        <div class="content">
-            <div class="text-wrapper">Dashboard</div>
-            <p>Total de Veículos: {{ total_veiculos }}</p>
-            <p>Entradas Hoje: {{ entradas_hoje }}</p>
-            <p>Saídas Hoje: {{ saidas_hoje }}</p>
-            <!-- Você pode adicionar gráficos ou outras informações aqui -->
-        </div>
-        <div class="text-wrapper">Bem-vindo, {{ request.user }}!</div>
-            <p>Escolha uma opção:</p>
-            <ul>
-                <li><a href="{% url 'cadastro_veiculo' %}">Cadastro de Veículos</a></li>
-                <li><a href="{% url 'registro' %}">Registro de Entrada/Saída</a></li>
-                <li><a href="{% url 'historico' %}">Histórico de Registros</a></li>
-                <li><a href="{% url 'configuracoes' %}">Configurações</a></li>
-            </ul>
-            <p><a href="{% url 'logout' %}">Sair</a></p>
-        </div>
+<div class="LOGIN">
+  <div class="div">
+    <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
+    <div class="content">
+      <div class="text-wrapper">Bem-vindo, {{ user.username }}</div>
+      <!-- cartões ou estatísticas -->
+      {{ dashboard_cards }}
     </div>
+  </div>
 </div>
 {% endblock %}

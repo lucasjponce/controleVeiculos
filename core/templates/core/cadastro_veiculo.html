@@ -1,70 +1,32 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% block title %}Cadastro de Veículos{% endblock %}
-
 {% block content %}
 <div class="LOGIN">
-    <div class="div">
-        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
-        <div class="content">
-            <div class="text-wrapper">Cadastro de Veículo</div>
-            <form method="post" id="form-veiculo">
-                {% csrf_token %}
-                <div class="input-box">
-                    {{ form.veiculo_predefinido.label_tag }}
-                    {{ form.veiculo_predefinido }}
-                </div>
-
-                <div class="input-box">
-                    {{ form.placa.label_tag }}
-                    {{ form.placa }}
-                </div>
-
-                <div class="input-box">
-                    {{ form.marca.label_tag }}
-                    {{ form.marca }}
-                </div>
-
-                <div class="input-box">
-                    {{ form.modelo.label_tag }}
-                    {{ form.modelo }}
-                </div>
-
-                <div class="input-box">
-                    {{ form.origem.label_tag }}
-                    {{ form.origem }}
-                </div>
-
-                <button type="submit" class="button-box">
-                    <span>Cadastrar</span>
-                </button>
-            </form>
+  <div class="div">
+    <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
+    <div class="content">
+      <div class="text-wrapper">Cadastro de Veículo</div>
+      <form method="post">
+        {% csrf_token %}
+        <div class="input-box">
+          {{ form.modelo_predefinido.label_tag }}
+          {{ form.modelo_predefinido }}
+          {{ form.modelo_predefinido.errors }}
         </div>
+        <div class="input-box">
+          {{ form.placa.label_tag }}
+          {{ form.placa }}
+          {{ form.placa.errors }}
+        </div>
+        <div class="input-box">
+          {{ form.proprietario.label_tag }}
+          {{ form.proprietario }}
+          {{ form.proprietario.errors }}
+        </div>
+        <button type="submit" class="button-box"><span>Cadastrar</span></button>
+      </form>
     </div>
+  </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const selectModelo = document.getElementById('id_modelo_predefinido');
-        const marcaInput = document.getElementById('id_marca');
-        const modeloInput = document.getElementById('id_modelo');
-    
-        if (selectModelo) {
-        $(selectModelo).select2({
-            placeholder: "Selecione Marca e Modelo",
-            allowClear: true,
-            width: '100%'
-        });
-
-        selectModelo.addEventListener('change', function () {
-            const selectedOption = selectModelo.options[selectModelo.selectedIndex];
-            if (selectedOption && selectedOption.text.includes('-')) {
-                const [marca, modelo] = selectedOption.text.split('-');
-                marcaInput.value = marca.trim();
-                modeloInput.value = modelo.trim();
-            }
-        });
-    }
-});
-</script>
 {% endblock %}
