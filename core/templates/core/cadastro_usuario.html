@@ -1,22 +1,21 @@
 {% extends 'core/base.html' %}
 {% load static}
-{% block title %}Cadastrar Usuário{% endblock %}
+{% block title %}Cadastro de Usuário{% endblock %}
+
 {% block content %}
 <div class="LOGIN">
-  <div class="div">
-    <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
-    <div class="content">
-      <div class="text-wrapper">Cadastro de Usuário</div>
-      <form method="post">
-        {% csrf_token %}
-        <div class="input-box">{{ form.cpf.label_tag }}{{ form.cpf }}{{ form.cpf.errors }}</div>
-        <div class="input-box">{{ form.password.label_tag }}{{ form.password }}{{ form.password.errors }}</div>
-        <div class="input-box">{{ form.senha2.label_tag }}{{ form.senha2 }}{{ form.senha2.errors }}</div>
-        <div class="input-box">{{ form.papel.label_tag }}{{ form.papel }}{{ form.papel.errors }}</div>
-        <div class="input-box">{{ form.funcao.label_tag }}{{ form.funcao }}{{ form.funcao.errors }}</div>
-        <button type="submit" class="button-box"><span>Cadastrar</span></button>
-      </form>
+    <div class="div">
+        <div class="content">
+            <div class="text-wrapper">Cadastro de Usuário</div>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="button-box">
+                    <span>Cadastrar</span>
+                </button>
+            </form>
+            <p>Já possui cadastro? <a href="{% url 'login' %}">Clique aqui para fazer login</a>.</p>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}

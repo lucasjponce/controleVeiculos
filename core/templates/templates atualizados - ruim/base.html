@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Controle de Veículos{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="content-container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+    <footer>
+        <p>© 2025 Controle de Veículos</p>
+    </footer>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectModelo = document.getElementById('id_modelo_predefinido');
+            const marcaInput = document.getElementById('id_marca');
+            const modeloInput = document.getElementById('id_modelo');
+            const form = document.getElementById('form-veiculo');
+        
+            if (selectModelo && marcaInput && modeloInput && form) {
+                $(selectModelo).select2({
+                    placeholder: "Selecione Marca e Modelo",
+                    allowClear: true,
+                    width: '100%'
+                });
+        
+                function preencherCampos() {
+                    const selectedOption = selectModelo.options[selectModelo.selectedIndex];
+                    if (selectedOption && selectedOption.text.includes(' - ')) {
+                        const [marca, modelo] = selectedOption.text.split(' - ');
+                        marcaInput.value = marca.trim();
+                        modeloInput.value = modelo.trim();
+                    } else {
+                        marcaInput.value = '';
+                        modeloInput.value = '';
+                    }
+                }
+        
+                selectModelo.addEventListener('change', preencherCampos);
+        
+                // Força o preenchimento no momento do envio
+                form.addEventListener('submit', function (e) {
+                    preencherCampos(); // Garante que os campos estejam preenchidos no exato momento do envio
+                });
+        
+                preencherCampos(); // Executa inicialmente
+            }
+        });
+        </script>
+        
+</body>
+</html>

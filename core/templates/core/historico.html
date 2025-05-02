@@ -1,15 +1,38 @@
 {% extends 'core/base.html' %}
 {% load static %}
-{% block title %}Histórico{% endblock %}
+{% block title %}Histórico de Registros{% endblock %}
+
 {% block content %}
 <div class="LOGIN">
-  <div class="div">
-    <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
-    <div class="content">
-      <div class="text-wrapper">Histórico de Movimentações</div>
-      <!-- tabela ou lista de registros -->
-      {{ registros_table }}
+    <div class="div">
+        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
+        <div class="content">
+            <div class="text-wrapper">Histórico de Registros</div>
+            <table border="1" style="width:100%; color: #fff; background-color: #252525;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data/Hora</th>
+                        <th>Tipo</th>
+                        <th>Veículo</th>
+                        <th>Usuário</th>
+                        <th>Observações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for registro in registros %}
+                    <tr>
+                        <td>{{ registro.id }}</td>
+                        <td>{{ registro.data_hora }}</td>
+                        <td>{{ registro.tipo }}</td>
+                        <td>{{ registro.veiculo.placa }}</td>
+                        <td>{{ registro.usuario }}</td>
+                        <td>{{ registro.observacoes }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}

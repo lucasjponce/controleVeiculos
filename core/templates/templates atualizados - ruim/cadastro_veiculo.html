@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Cadastro de Veículos{% endblock %}
+{% block content %}
+<div class="LOGIN">
+  <div class="div">
+    <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
+    <div class="content">
+      <div class="text-wrapper">Cadastro de Veículo</div>
+      <form method="post">
+        {% csrf_token %}
+        <div class="input-box">
+          {{ form.modelo_predefinido.label_tag }}
+          {{ form.modelo_predefinido }}
+          {{ form.modelo_predefinido.errors }}
+        </div>
+        <div class="input-box">
+          {{ form.placa.label_tag }}
+          {{ form.placa }}
+          {{ form.placa.errors }}
+        </div>
+        <div class="input-box">
+          {{ form.proprietario.label_tag }}
+          {{ form.proprietario }}
+          {{ form.proprietario.errors }}
+        </div>
+        <button type="submit" class="button-box"><span>Cadastrar</span></button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

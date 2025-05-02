@@ -1,0 +1,6 @@
+--> comandos para importar a api
+
+python manage.py shell
+
+from core.scripts import importar_modelos
+importar_modelos()
