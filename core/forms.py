@@ -23,13 +23,31 @@ class VeiculoForm(forms.ModelForm):
     class Meta:
         model = Veiculo
         fields = ['placa', 'proprietario']
-        #widgets = {
-        #    'placa': forms.TextInput(attrs={'placeholder': 'Placa'}),
-        #    'proprietario': forms.TextInput(attrs={'placeholder': 'Proprietário'}),
-        #}
+        widgets = {
+            'placa': forms.TextInput(attrs={
+                'placeholder': 'AAA1234',
+                'style': 'text-transform:uppercase;',
+                'maxlength': '8'
+            }),
+            'proprietario': forms.TextInput(attrs={'placeholder': 'Proprietário'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(VeiculoForm, self).__init__(*args, **kwargs)
+
+    def clean_placa(self):
+        placa = self.cleaned_data['placa'].upper().replace("-", "")
+
+        # Verifica se tem exatamente 7 caracteres
+        if len(placa) != 7:
+            raise forms.ValidationError("A placa deve conter exatamente 7 caracteres.")
+
+        # Valida padrão: 3 letras + 4 números/letras
+        import re
+        if not re.match(r'^[A-Z]{3}[0-9A-Z]{4}$', placa):
+            raise forms.ValidationError("Formato de placa inválido. Use o formato AAA1234.")
+
+        return placa    
 
 class RegistroForm(forms.ModelForm):
     class Meta:

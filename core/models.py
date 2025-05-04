@@ -1,16 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.core.validators import RegexValidator
 
+# ===== Validador de placa =====
+placa_validator = RegexValidator(
+    regex=r'^[A-Z]{3}[0-9A-Z]{4}$',
+    message='A placa deve estar no formato AAA1234 (3 letras seguidas de 4 letras/números)'
+)
 
-#class Usuario(models.Model):
-#    cpf = models.CharField(max_length=14, primary_key=True)  # Ex: 000.000.000-00
-#    senha = models.CharField(max_length=128)
-#    papel = models.CharField(max_length=50)  # Ex: Administrador, Operador
-#    funcao = models.CharField(max_length=100)
-
-#    def __str__(self):
-#        return self.cpf
-
+# ===== Gerenciador personalizado de usuário =====
 class UsuarioManager(BaseUserManager):
     def create_user(self, cpf, password=None, **extra_fields):
         if not cpf:
@@ -25,6 +23,7 @@ class UsuarioManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(cpf, password, **extra_fields)
 
+# ===== Modelo de Usuário =====
 class Usuario(AbstractBaseUser, PermissionsMixin):
     cpf = models.CharField(max_length=14, unique=True, primary_key=True)
     password = models.CharField(max_length=128)  # Use "password" aqui
@@ -41,17 +40,27 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.cpf
 
+# ===== Modelo de Veículo =====
 class Veiculo(models.Model):
     id = models.AutoField(primary_key=True)
-    placa = models.CharField(max_length=10, unique=True)
+    placa = models.CharField(
+        max_length=8,
+        validators=[placa_validator],
+        unique=True
+    )
     proprietario = models.CharField(max_length=100)
     marca = models.CharField(max_length=50)
     modelo = models.CharField(max_length=50)
-    # campo origem removido
 
     def __str__(self):
         return f"{self.placa} - {self.proprietario}"
     
+    def save(self, *args, **kwargs):
+        if self.placa:
+            self.placa = self.placa.upper().replace("-", "")
+        super().save(*args, **kwargs)
+
+# ===== Modelo de Registro de Entrada/Saída =====    
 class Registro(models.Model):
     id = models.AutoField(primary_key=True)
     data_hora = models.DateTimeField(auto_now_add=True)
@@ -63,6 +72,7 @@ class Registro(models.Model):
     def __str__(self):
         return f"{self.tipo} - {self.veiculo.placa} em {self.data_hora}"
 
+# ===== Modelo de veículos predefinidos =====
 class ModeloVeiculo(models.Model):
     marca = models.CharField(max_length=50)
     modelo = models.CharField(max_length=50)
