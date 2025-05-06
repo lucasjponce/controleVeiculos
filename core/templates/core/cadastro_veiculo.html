@@ -12,17 +12,17 @@
                 {% csrf_token %}
                 <form method="post" id="form-veiculo">
                     {% csrf_token %}
-                    <div class="input-box">
+                    <div style="color: aliceblue;" class="input-box">
                       {{ form.modelo_predefinido.label_tag }}
                       {{ form.modelo_predefinido }}
                       {{ form.modelo_predefinido.errors }}
                     </div>
-                    <div class="input-box">
+                    <div style="color: aliceblue;" class="input-box">
                       {{ form.placa.label_tag }}
                       {{ form.placa }}
                       {{ form.placa.errors }}
                     </div>
-                    <div class="input-box">
+                    <div style="color: aliceblue;" class="input-box">
                       {{ form.proprietario.label_tag }}
                       {{ form.proprietario }}
                       {{ form.proprietario.errors }}
