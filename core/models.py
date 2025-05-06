@@ -31,7 +31,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     funcao = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    
+
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'cpf'
@@ -67,7 +67,11 @@ class Registro(models.Model):
     tipo = models.CharField(max_length=10)  # Ex: Entrada, Saída
     observacoes = models.TextField(blank=True, null=True)
     veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(
+        Usuario, 
+        to_field='cpf',
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return f"{self.tipo} - {self.veiculo.placa} em {self.data_hora}"

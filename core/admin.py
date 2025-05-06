@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Usuario, Veiculo
+from .models import Usuario, Veiculo, Registro
 
 @admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
@@ -14,3 +14,10 @@ class VeiculoAdmin(admin.ModelAdmin):
     search_fields = ('placa', 'proprietario')
     list_filter = ('marca',)
     ordering = ('placa',)
+
+@admin.register(Registro)
+class RegistroAdmin(admin.ModelAdmin):
+    list_display = ('tipo', 'data_hora', 'veiculo', 'usuario')
+    search_fields = ('veiculo__placa', 'usuario__cpf')
+    list_filter = ('tipo', 'data_hora')
+    ordering = ('-data_hora',)
