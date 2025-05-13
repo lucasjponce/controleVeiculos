@@ -1,6 +1,11 @@
 from django import forms
 from .models import Veiculo, Registro, Usuario, ModeloVeiculo
 
+PAPEIS_CHOICES = [
+    ('usuario', 'Usuário'),
+    ('administrador', 'Administrador')
+]
+
 def validar_cpf(cpf: str) -> bool:
     cpf = ''.join(filter(str.isdigit, cpf))
     if len(cpf) != 11 or cpf == cpf[0] * 11:
@@ -57,21 +62,22 @@ class RegistroForm(forms.ModelForm):
             'tipo': forms.Select(choices=[('Entrada', 'Entrada'), ('Saída', 'Saída')]),
             'observacoes': forms.Textarea(attrs={'placeholder': 'Observações'}),
         }
+        
 
 class UsuarioCadastroForm(forms.ModelForm):
-    senha2 = forms.CharField(widget=forms.PasswordInput, label="Confirme a Senha")
+    senha2 = forms.CharField(widget=forms.PasswordInput, label="Confirme a SENHA")
+    papel = forms.ChoiceField(choices=PAPEIS_CHOICES, required=True)
 
     class Meta:
         model = Usuario
-        fields = ['cpf', 'password', 'papel', 'funcao']
+        fields = ['cpf', 'password', 'papel']
         widgets = {
             'password': forms.PasswordInput,
         }
         labels = {
             'cpf': 'CPF',
-            'password': 'Password',
+            'password': 'SENHA',
             'papel': 'Papel',
-            'funcao': 'Função',
         }
 
     def clean(self):

@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Cadastro de Usuário{% endblock %}
+
+{% block content %}
+<div class="LOGIN">
+    <div class="div">
+        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" />
+        <div class="content">
+            <div style="color: aliceblue;" class="text-wrapper">Cadastro de Usuário</div>
+            <form method="post"style="color: aliceblue;">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="button-box">
+                    <span>Cadastrar</span>
+                </button>
+            </form>
+            <p style="color: aliceblue;">Já possui cadastro? <a href="{% url 'login' %}" style="color: rgb(251, 255, 0);">Clique aqui para fazer login</a>.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

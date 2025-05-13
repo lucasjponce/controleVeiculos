@@ -4,8 +4,8 @@
 
 {% block content %}
 <div class="LOGIN">
-    <div class="div">
-        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
+    <div class="div" style="align-items: flex-start; gap: 20px; padding: 20px;">
+        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo" style="max-width: 560px; height: auto;">
         
         <div class="content" style="flex: 2; max-width: 900px;">
             <div class="text-wrapper">Histórico de Registros</div>
@@ -32,18 +32,6 @@
                     height: 38px;
                     align-self: stretch;
                 ">Filtrar</button>
-                <a href="{% url 'menu' %}" class="button-box" 
-                    style="
-                    background-color: #ffdd06;
-                    border: none;
-                    border-radius: 5px;
-                    padding: 6px 12px;
-                    font-weight: bold;
-                    cursor: pointer;
-                    height: 38px;
-                    align-self: stretch;">
-                    <span>Voltar ao Menu</span>
-                </a>
             </form>
 
             <div style="overflow-x: auto;">

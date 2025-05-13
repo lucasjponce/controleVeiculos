@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Registrar Entrada/Saída{% endblock %}
+{% block content %}
+<div class="MENU">
+  <div class="div">
+    <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
+    <div class="content">
+      <div class="text-wrapper">Registrar Entrada/Saída</div>
+      <form method="post">
+        {% csrf_token %}
+        <div class="input-box">{{ form.tipo.label_tag }}{{ form.tipo }}{{ form.tipo.errors }}</div>
+        <div class="input-box">{{ form.observacoes.label_tag }}{{ form.observacoes }}{{ form.observacoes.errors }}</div>
+        <div class="input-box">{{ form.veiculo.label_tag }}{{ form.veiculo }}{{ form.veiculo.errors }}</div>
+        <button type="submit" class="button-box"><span>Registrar</span></button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

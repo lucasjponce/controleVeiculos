@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import VeiculoForm, RegistroForm, UsuarioCadastroForm
 from django.contrib.auth.hashers import make_password
+from django.db.models import Q
+from django.utils.dateparse import parse_date
+from datetime import datetime
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
@@ -38,18 +41,6 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
-@login_required
-def dashboard_view(request):
-    total_veiculos = Veiculo.objects.count()
-    entradas_hoje = Registro.objects.filter(tipo='Entrada').count()  # ajuste para filtrar pela data
-    saidas_hoje = Registro.objects.filter(tipo='Saída').count()      # ajuste para filtrar pela data
-    context = {
-        'total_veiculos': total_veiculos,
-        'entradas_hoje': entradas_hoje,
-        'saidas_hoje': saidas_hoje,
-    }
-    return render(request, 'core/dashboard.html', context)
-
 def menu_view(request):
     if request.method == "POST":
         return redirect('registro')
@@ -78,13 +69,35 @@ def registro_view(request):
             # Se desejar associar o usuário logado:
             registro.usuario = request.user  
             registro.save()
-            return redirect('dashboard')
+            return redirect('historico')
     else:
         form = RegistroForm()
     return render(request, 'core/registro.html', {'form': form})
 
 def historico_view(request):
-    registros = Registro.objects.all().order_by('-data_hora')
+    registros = Registro.objects.select_related('veiculo', 'usuario').all()
+
+    data = request.GET.get('data')
+    tipo = request.GET.get('tipo')
+    veiculo = request.GET.get('veiculo')
+    proprietario = request.GET.get('proprietario')
+
+    if data:
+        try:
+            data_obj = datetime.strptime(data, "%Y-%m-%d").date()
+            registros = registros.filter(data_hora__date=data_obj)
+        except ValueError:
+            pass
+
+    if tipo:
+        registros = registros.filter(tipo=tipo)
+    if veiculo:
+        registros = registros.filter(veiculo__placa__icontains=veiculo)
+    proprietario = request.GET.get('usuario')
+    if proprietario:
+        registros = registros.filter(veiculo__proprietario__icontains=proprietario)
+
+    registros = registros.order_by('-data_hora')
     return render(request, 'core/historico.html', {'registros': registros})
 
 def configuracoes_view(request):
