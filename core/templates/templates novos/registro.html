@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Registros</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .logo {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .content {
+      flex: 2;
+      background-color: #5a5555;
+      border-radius: 10px;
+      padding: 30px;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .content h2 {
+      margin-bottom: 20px;
+    }
+
+    .voltar {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+    }
+
+    .voltar a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    .filtros {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .filtros input, .filtros select {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      flex: 1;
+    }
+
+    .btn {
+      background-color: #ffcc00;
+      color: black;
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #e6b800;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background-color: #6d6868;
+    }
+
+    table th, table td {
+      padding: 10px;
+      border: 1px solid #444;
+      text-align: center;
+      color: white;
+    }
+
+    table th {
+      background-color: #4e4a4a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo lateral -->
+    <div class="logo">
+      <img src="./img/images 1.png" alt="Logo Polícia Penal" width="250">
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="content">
+      <div class="voltar"><a href="index.html">Voltar ao Menu</a></div>
+      <h2>Histórico de Registros</h2>
+
+      <!-- Filtros -->
+      <div class="filtros">
+        <input type="date" id="filtroData">
+        <select id="filtroTipo">
+          <option value="">-- Tipo --</option>
+          <option value="Entrada">Entrada</option>
+          <option value="Saida">Saída</option>
+        </select>
+        <input type="text" id="filtroPlaca" placeholder="Placa do veículo">
+        <input type="text" id="filtroProprietario" placeholder="Proprietário">
+        <button class="btn" onclick="filtrarTabela()">Filtrar</button>
+      </div>
+
+      <!-- Tabela -->
+      <table id="tabelaRegistros">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Tipo</th>
+            <th>Veículo</th>
+            <th>Proprietário</th>
+            <th>Observação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>9</td><td>2025-05-13</td><td>11:19:20</td><td>Saida</td><td>ASS1234</td><td>Jose</td><td>None</td>
+          </tr>
+          <tr>
+            <td>8</td><td>2025-05-13</td><td>11:11:59</td><td>Saida</td><td>DDD1234</td><td>João</td><td>None</td>
+          </tr>
+          <tr>
+            <td>7</td><td>2025-05-13</td><td>10:40:58</td><td>Entrada</td><td>ASS1234</td><td>Jose</td><td>Observação</td>
+          </tr>
+          <tr>
+            <td>6</td><td>2025-05-13</td><td>10:39:24</td><td>Saida</td><td>BBB1234</td><td>Jose</td><td>Observação</td>
+          </tr>
+          <tr>
+            <td>5</td><td>2025-05-13</td><td>08:27:35</td><td>Entrada</td><td>PPP1111</td><td>Jose</td><td></td>
+          </tr>
+          <tr>
+            <td>3</td><td>2025-05-04</td><td>11:48:33</td><td>Saida</td><td>ASS1234</td><td>Jose</td><td>Saida</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function filtrarTabela() {
+      const dataFiltro = document.getElementById("filtroData").value;
+      const tipoFiltro = document.getElementById("filtroTipo").value.toLowerCase();
+      const placaFiltro = document.getElementById("filtroPlaca").value.toLowerCase();
+      const proprietarioFiltro = document.getElementById("filtroProprietario").value.toLowerCase();
+
+      const tabela = document.getElementById("tabelaRegistros").getElementsByTagName("tbody")[0];
+      const linhas = tabela.getElementsByTagName("tr");
+
+      for (let i = 0; i < linhas.length; i++) {
+        const colunas = linhas[i].getElementsByTagName("td");
+        const data = colunas[1].textContent.trim();
+        const tipo = colunas[3].textContent.trim().toLowerCase();
+        const placa = colunas[4].textContent.trim().toLowerCase();
+        const proprietario = colunas[5].textContent.trim().toLowerCase();
+
+        let exibir = true;
+
+        if (dataFiltro && data !== dataFiltro) exibir = false;
+        if (tipoFiltro && tipo !== tipoFiltro) exibir = false;
+        if (placaFiltro && !placa.includes(placaFiltro)) exibir = false;
+        if (proprietarioFiltro && !proprietario.includes(proprietarioFiltro)) exibir = false;
+
+        linhas[i].style.display = exibir ? "" : "none";
+      }
+    }
+  </script>
+</body>
+</html>

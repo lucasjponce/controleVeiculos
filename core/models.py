@@ -44,7 +44,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 class Veiculo(models.Model):
     id = models.AutoField(primary_key=True)
     placa = models.CharField(
-        max_length=8,
+        max_length=10,
         validators=[placa_validator],
         unique=True
     )

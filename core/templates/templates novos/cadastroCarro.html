@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Veículos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .container {
+      display: flex;
+      width: 80%;
+      max-width: 1000px;
+    }
+
+    .left {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .left img {
+      max-width: 300px;
+    }
+
+    .right {
+      flex: 1;
+      background-color: #5c5555;
+      padding: 40px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .right a.voltar {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: #f0b90b;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: white;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #f0b90b;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      color: black;
+    }
+
+    .btn:hover {
+      background-color: #e0a800;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #f0b90b;
+      text-decoration: none;
+    }
+
+    .error {
+      color: #ff4d4d;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Lado esquerdo (logo) -->
+    <div class="left">
+      <img src="./img/images 1.png" alt="Logo Polícia Penal">
+    </div>
+
+    <!-- Lado direito (formulário) -->
+    <div class="right">
+      <a href="index.html" class="voltar">Voltar ao Menu</a>
+      <h2>Cadastro de Veículos</h2>
+      <form id="formVeiculo">
+        <label for="proprietario">Proprietário:</label>
+        <input type="text" id="proprietario" name="proprietario" required>
+        <div id="erroProprietario" class="error"></div>
+
+        <label for="placa">Placa:</label>
+        <input type="text" id="placa" name="placa" required placeholder="ABC-1234 ou ABC1D23">
+        <div id="erroPlaca" class="error"></div>
+
+        <label for="marca">Marca:</label>
+        <select id="marca" name="marca" required>
+          <option value="">Selecione a marca</option>
+          <option value="chevrolet">Chevrolet</option>
+          <option value="fiat">Fiat</option>
+          <option value="ford">Ford</option>
+          <option value="honda">Honda</option>
+          <option value="toyota">Toyota</option>
+          <option value="volkswagen">Volkswagen</option>
+        </select>
+        <div id="erroMarca" class="error"></div>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required>
+        <div id="erroModelo" class="error"></div>
+
+        <button type="submit" class="btn">Cadastrar</button>
+      </form>
+      <div class="login-link">
+        Já possui cadastro? <a href="login.html">Clique aqui para visualizar</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("formVeiculo").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Pegando os valores
+      const proprietario = document.getElementById("proprietario").value.trim();
+      const placa = document.getElementById("placa").value.trim().toUpperCase();
+      const marca = document.getElementById("marca").value;
+      const modelo = document.getElementById("modelo").value.trim();
+
+      let valido = true;
+
+      // Limpar erros
+      document.querySelectorAll(".error").forEach(e => e.textContent = "");
+
+      // Validação do proprietário
+      if (proprietario.length < 3) {
+        document.getElementById("erroProprietario").textContent = "O nome do proprietário deve ter pelo menos 3 caracteres.";
+        valido = false;
+      }
+
+      // Validação da placa (regex para ABC-1234 ou ABC1D23)
+      const regexPlaca = /^[A-Z]{3}-\d{4}$|^[A-Z]{3}\d[A-Z]\d{2}$/;
+      if (!regexPlaca.test(placa)) {
+        document.getElementById("erroPlaca").textContent = "Formato inválido. Use ABC-1234 ou ABC1D23.";
+        valido = false;
+      }
+
+      // Validação da marca
+      if (marca === "") {
+        document.getElementById("erroMarca").textContent = "Selecione uma marca.";
+        valido = false;
+      }
+
+      // Validação do modelo
+      if (modelo.length < 2) {
+        document.getElementById("erroModelo").textContent = "O modelo deve ter pelo menos 2 caracteres.";
+        valido = false;
+      }
+
+      // Se tudo certo
+      if (valido) {
+        alert("✅ Veículo cadastrado com sucesso!");
+        this.reset();
+      }
+    });
+  </script>
+</body>
+</html>

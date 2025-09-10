@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Cadastro de Usuário{% endblock %}
+
+{% block content %}
+<div class="LOGIN">
+    <div class="div">
+        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" />
+        <div class="content">
+            <div class="text-wrapper">Cadastro de Usuário</div>
+                <form method="post">
+                    {% csrf_token %}
+        
+                    <div class="input-box" style="color: aliceblue">
+                        {{ form.cpf.label_tag }}
+                        {{ form.cpf }}
+                        {{ form.cpf.errors }}
+                    </div>
+
+                    <div class="input-box" style="color: aliceblue">
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                        {{ form.password.errors }}
+                    </div>
+
+                    <div class="input-box" style="color: aliceblue">
+                        {{ form.senha2.label_tag }}
+                        {{ form.senha2 }}
+                        {{ form.senha2.errors }}
+                    </div>
+
+                    <div class="input-box" style="color: aliceblue">
+                        {{ form.papel.label_tag }}
+                        {{ form.papel }}
+                        {{ form.papel.errors }}
+                    </div>
+
+                    <button type="submit" class="button-box">
+                        <span>Cadastrar</span>
+                    </button>
+                    <a href="{% url 'menu' %}" class="button-box" style="margin-top: 15px;"><span>Voltar ao Menu</span></a>
+            <p style="color: aliceblue;">Já possui cadastro? <a href="{% url 'login' %}" style="color: rgb(251, 255, 0);">Clique aqui para fazer login</a>.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

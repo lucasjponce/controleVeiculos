@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Principal</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .logo {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .menu {
+      flex: 1;
+      background-color: #5a5555;
+      border-radius: 10px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      justify-items: center;
+      align-items: center;
+      position: relative;
+    }
+    .menu a {
+      width: 160px;
+      height: 160px;
+      background-color: #4e4a4a;
+      border: 2px solid #ffcc00;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .menu a:hover {
+      background-color: #6d6868;
+      transform: scale(1.05);
+    }
+
+    .menu a i {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    .login{
+      position: absolute;
+      top: 20px;
+      right: 50px;
+      font-size: 18px;
+    }
+
+    .login a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+    
+  </style>
+  <!-- Importando ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Logo lateral -->
+    <div class="logo">
+      <img src="./img/images 1.png" alt="Logo Polícia Penal" width="250">
+    </div>
+    <div class="login"><a href="login.html">login</a></div>
+    <!-- Menu de opções -->
+    <div class="menu">
+      <a href="cadastro.html">
+        <i class="fa fa-user"></i>
+        Cadastrar Usuário
+      </a>
+
+      <a href="cadastroCarro.html">
+        <i class="fa fa-car"></i>
+        Cadastrar Veículo
+      </a>
+
+      <a href="registro.html">
+        <i class="fa fa-list"></i>
+        Histórico
+      </a>
+
+      <a href="administracao.html">
+        <i class="fa fa-cog"></i>
+        Administração
+      </a>
+    </div>
+  </div>
+</body>
+</html>
