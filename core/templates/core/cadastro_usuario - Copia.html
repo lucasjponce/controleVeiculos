@@ -3,12 +3,17 @@
 {% block title %}Cadastro de Usuário{% endblock %}
 
 {% block content %}
-<div class="LOGIN">
-    <div class="div">
-        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" />
-        <div class="content">
-            <div style="color: aliceblue;" class="text-wrapper">Cadastro de Usuário</div>
-            <form method="post"style="color: aliceblue;">
+<div class="CAD_USER">
+    <div class="container">
+        <!-- Logo lateral -->
+        <div class="logo">
+            <img src="{%static 'imagens/logo-novo.png' %}" alt="Logo Polícia Penal">
+        </div>
+        <!-- Formulário -->
+        <div class="form-container">
+            <!-- <div class="login"><a href="{% url 'login' %}">Voltar ao Menu</a></div> -->
+            <h2>Cadastro do Usuário</h2>
+            <form method="post" class="cadastroForm">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="button-box">

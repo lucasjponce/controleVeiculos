@@ -4,26 +4,41 @@
 
 {% block content %}
     <div class="MENU">
-      <div class="div">
-        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" />
-        <div class="content">
-            <div class="text-wrapper">Início</div>
-            <a class="button-box" href="{% url 'registro' %}">
-                <span>ENTRADA/SAIDA</span>
+        <div class="container">
+        <!-- Logo lateral -->
+        <div class="logo">
+            <img src="{% static 'imagens/logo-novo.png' %}" alt="Logo Polícia Penal" width="250">
+        </div>
+        <div class="login"><a href="{% url 'login' %}">Voltar ao Menu</a></div>
+        <!-- Menu de opções -->
+        <div class="menu">
+            <a href="{% url 'registro' %}">
+                <i class="fa fa-file-signature"></i>
+                ENTRADA/SAIDA
             </a>
-            <a class="button-box" href="{% url 'cadastro_usuario' %}">
-                <span>CADASTRAR USUÁRIOS</span>
+            
+            <a href="{% url 'cadastro_usuario' %}">
+                <i class="fa fa-user"></i>
+                CADASTRAR USUÁRIOS
             </a>
-            <a class="button-box" href="{% url 'cadastro_veiculo' %}">
-                <span>CADASTRAR VEÍCULOS</span>
+
+            <a href="{% url 'cadastro_veiculo' %}">
+                <i class="fa fa-car"></i>
+                CADASTRAR VEÍCULOS
             </a>
-            <a class="button-box" href="{% url 'historico' %}">
-                <span>HISTÓRICO</span>
+
+            <a href="{% url 'historico' %}">
+                <i class="fa fa-list"></i>
+                HISTÓRICO
             </a>
-            <a class="button-box" href="/admin/">
-                <span>ADMINISTRAÇÃO</span>
+
+            <a href="/admin/">
+                <i class="fa fa-cog"></i>
+                ADMINISTRAÇÃO
             </a>
+            
         </div>
       </div>
+      </div>  
     </div>
     {% endblock %}

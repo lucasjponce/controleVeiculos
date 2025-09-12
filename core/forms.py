@@ -65,7 +65,7 @@ class RegistroForm(forms.ModelForm):
         
 
 class UsuarioCadastroForm(forms.ModelForm):
-    senha2 = forms.CharField(widget=forms.PasswordInput, label="Confirme a SENHA")
+    senha2 = forms.CharField(widget=forms.PasswordInput, label="Confirme a Senha")
     papel = forms.ChoiceField(choices=PAPEIS_CHOICES, required=True)
 
     class Meta:
@@ -76,7 +76,7 @@ class UsuarioCadastroForm(forms.ModelForm):
         }
         labels = {
             'cpf': 'CPF',
-            'password': 'SENHA',
+            'password': 'Senha',
             'papel': 'Papel',
         }
 

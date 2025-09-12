@@ -94,3 +94,189 @@ body {
   font-size: 14px;
   text-decoration: none;
 }
+
+/* menu estilos */
+.MENU .body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+.MENU .container {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.MENU .logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MENU .menu {
+  flex: 1;
+  background-color: #5a5555;
+  border-radius: 10px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+}
+.MENU .menu a {
+  width: 160px;
+  height: 160px;
+  background-color: #4e4a4a;
+  border: 2px solid #ffcc00;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.MENU .menu a:hover {
+  background-color: #6d6868;
+  transform: scale(1.05);
+}
+
+.MENU .menu a i {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.MENU .login{
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  font-size: 18px;
+}
+
+.MENU .login a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+.CAD_USER .body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+.CAD_USER .container {
+  display: flex;
+  background-color: #000;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.CAD_USER .logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CAD_USER .form-container {
+  flex: 1;
+  background-color: #5a5555;
+  border-radius: 10px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-x: auto;
+  position: relative;
+}
+       
+.CAD_USER .h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.CAD_USER label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.CAD_USER input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.CAD_USER select {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.CAD_USER .btn {
+  background-color: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.CAD_USER .btn:hover {
+  background-color: #e6b800;
+}
+
+.CAD_USER .extra-links {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.CAD_USER .extra-links a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+.CAD_USER .extra-links a:hover {
+  text-decoration: underline;
+}
+
+.CAD_USER .voltar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 14px;
+}
+
+.CAD_USER .voltar a {
+  color: #ffcc00;
+  text-decoration: none;
+}
