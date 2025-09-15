@@ -2,31 +2,38 @@
 {% load static %}
 {% block title %}Registrar Entrada/Saída{% endblock %}
 {% block content %}
-<div class="LOGIN">
-  <div class="div">
-    <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
+<div class="REGISTRO">
+  <div class="container">
+    <!-- Logo -->
+      <div class="logo">
+        <img src="{%static 'imagens/logo-novo.png' %}" alt="Logo Polícia Penal">
+      </div>
+    <!-- Formulário -->
     <div class="content">
-      <div class="text-wrapper">Registrar Entrada/Saída</div>
+      <div class="voltar"><a href="{% url 'menu' %}">Voltar ao Menu</a></div>
+      <h2>Registrar Entrada/Saída</h2>
+    
       <form method="post">
         {% csrf_token %}
-        <div class="input-box" style="color: aliceblue">
-          {{ form.tipo.label_tag }}
-          {{ form.tipo }}
-          {{ form.tipo.errors }}
-        </div>
-        <div class="input-box" style="color: aliceblue">
-          {{ form.veiculo.label_tag }}
-          {{ form.veiculo }}
-          {{ form.veiculo.errors }}
-        </div>
-        <div class="input-box" style="color: aliceblue">
-          {{ form.observacoes.label_tag }}
-          <textarea name="observacoes" rows="1" style="resize:none;width:100%;max-width:550px;border-radius:12px;padding:12px;background:#252525;color:#fff;border:2px solid #ccc;">{{ form.observacoes.value }}</textarea>
-          {{ form.observacoes.errors }}
-        </div>
-        <button type="submit" class="button-box"><span>Registrar</span></button>
+        
+        {{ form.tipo.label_tag }}
+        {{ form.tipo }}
+        {{ form.tipo.errors }}
+        
+        
+        {{ form.veiculo.label_tag }}
+        {{ form.veiculo }}
+        {{ form.veiculo.errors }}
+        
+        
+        {{ form.observacoes.label_tag }}
+        {{ form.observacoes.value }}
+        {{ form.observacoes.errors }}
+        
+        <button type="submit" class="btn">
+          Registrar
+        </button>
       </form>
-      <a href="{% url 'menu' %}" class="button-box" style="margin-top: 15px;"><span>Voltar ao Menu</span></a>
     </div>
   </div>
 </div>

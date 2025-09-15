@@ -4,11 +4,25 @@ body {
   padding: 0;
   font-family: Arial, sans-serif;
   background-color: #000;
-  display: flex;
+  /*display: flex; tirei porque nao estava ficando centralizado
+  do jeito que gostaria*/
   justify-content: center;
   align-items: center;
   height: 100vh;
   color: white;
+}
+ /*solução paleativa, ficou funcional e com um visual melhor */
+.REGISTRO,
+.HISTORICO,
+.CAD_VEC,
+.CAD_USER,
+.MENU,
+.LOGIN {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;  /* ocupa a altura toda da tela */
+  background-color: #000;  /* mantém fundo preto */
 }
 
 /* login estilos */    
@@ -121,6 +135,10 @@ body {
   align-items: center;
 }
 
+.MENU .logo img {
+  max-width: 300px;
+}
+
 .MENU .menu {
   flex: 1;
   background-color: #5a5555;
@@ -173,6 +191,7 @@ body {
   text-decoration: none;
 }
 
+/*stylesheet cadastro de usuarios */
 .CAD_USER .body {
   margin: 0;
   padding: 0;
@@ -199,6 +218,10 @@ body {
   align-items: center;
 }
 
+.CAD_USER .logo img {
+  max-width: 300px;
+}
+
 .CAD_USER .form-container {
   flex: 1;
   background-color: #5a5555;
@@ -210,7 +233,7 @@ body {
   overflow-x: auto;
   position: relative;
 }
-       
+
 .CAD_USER .h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -279,4 +302,261 @@ body {
 .CAD_USER .voltar a {
   color: #ffcc00;
   text-decoration: none;
+}
+
+/* stylesheet cadastro de veiculos */
+
+.CAD_VEC .container {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.CAD_VEC .logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CAD_VEC .logo img {
+  max-width: 300px;
+}
+
+.CAD_VEC .form-container {
+  flex: 1;
+  background-color: #5c5555;
+  padding: 30px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.CAD_VEC h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+.CAD_VEC .voltar a{
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #f0b90b;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.CAD_VEC label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.CAD_VEC input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: none;
+}
+
+.CAD_VEC select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: none;
+}
+
+.CAD_VEC .btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+}
+
+.CAD_VEC .btn:hover {
+  background-color: #e0a800;
+}
+
+/* Estilo Historico */
+
+.HISTORICO .container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.HISTORICO .logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.HISTORICO .logo img {
+  max-width: 300px;
+}
+
+.HISTORICO .content {
+  flex: 2;
+  background-color: #5a5555;
+  border-radius: 10px;
+  padding: 30px;
+  overflow-x: auto;
+  position: relative;
+}
+
+.HISTORICO h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+.HISTORICO .voltar a {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #f0b90b;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.HISTORICO .filtros {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.HISTORICO input{
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  flex: 1;
+}
+
+.HISTORICO select {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  flex: 1;
+}
+
+.HISTORICO .btn {
+  background-color: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.HISTORICO .btn:hover {
+  background-color: #e6b800;
+}
+
+.HISTORICO table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: #6d6868;
+}
+
+.HISTORICO table th, table td {
+  padding: 10px;
+  border: 1px solid #444;
+  text-align: center;
+  color: white;
+}
+
+.HISTORICO table th {
+  background-color: #4e4a4a;
+}
+
+/* Estilo Registro */
+
+.REGISTRO .container {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.REGISTRO .logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.REGISTRO .logo img {
+  max-width: 300px;
+}
+
+.REGISTRO .content {
+  flex: 1;
+  background-color: #5a5555;
+  border-radius: 10px;
+  padding: 40px;
+  overflow-x: auto;
+  position: relative;
+}
+
+.REGISTRO h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+.REGISTRO .voltar a {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #f0b90b;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.REGISTRO label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.REGISTRO input{
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  flex: 1;
+}
+
+.REGISTRO select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  flex: 1;
+}
+
+.REGISTRO .btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+}
+
+.REGISTRO .btn:hover {
+  background-color: #e6b800;
 }

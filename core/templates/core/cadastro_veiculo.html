@@ -3,37 +3,36 @@
 {% block title %}Cadastro de Veículos{% endblock %}
 
 {% block content %}
-<div class="LOGIN">
-    <div class="div">
-        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
-        <div class="content">
-            <div class="text-wrapper">Cadastro de Veículo</div>
-            <form method="post" id="form-veiculo">
-                {% csrf_token %}
-                <form method="post" id="form-veiculo">
-                    {% csrf_token %}
-                    <div style="color: aliceblue;" class="input-box">
-                      {{ form.modelo_predefinido.label_tag }}
-                      {{ form.modelo_predefinido }}
-                      {{ form.modelo_predefinido.errors }}
-                    </div>
-                    <div style="color: aliceblue;" class="input-box">
-                      {{ form.placa.label_tag }}
-                      {{ form.placa }}
-                      {{ form.placa.errors }}
-                    </div>
-                    <div style="color: aliceblue;" class="input-box">
-                      {{ form.proprietario.label_tag }}
-                      {{ form.proprietario }}
-                      {{ form.proprietario.errors }}
-                    </div>
-                    <button type="submit" class="button-box">
-                      <span>Cadastrar</span>
-                    </button>
-                    <a href="{% url 'menu' %}" class="button-box" style="margin-top: 15px;"><span>Voltar ao Menu</span></a>
-                  </form>
-                  
-        </div>
+<div class="CAD_VEC">
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="{%static 'imagens/logo-novo.png' %}" alt="Logo Polícia Penal">
     </div>
+    <!-- Formulário -->
+    <div class="form-container">
+      <div class="voltar"><a href="{% url 'menu' %}">Voltar ao Menu</a></div>
+      <h2>Cadastro de Veículo</h2>
+      <form method="post">
+        {% csrf_token %}
+                    
+        {{ form.modelo_predefinido.label_tag }}              
+        {{ form.modelo_predefinido }}
+        {{ form.modelo_predefinido.errors }}
+                    
+        {{ form.placa.label_tag }}
+        {{ form.placa }}
+        {{ form.placa.errors }}
+
+        {{ form.proprietario.label_tag }}
+        {{ form.proprietario }}
+        {{ form.proprietario.errors }}
+
+        <button type="submit" class="btn">
+          Cadastrar
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
 {% endblock %}

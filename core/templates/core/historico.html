@@ -3,82 +3,68 @@
 {% block title %}Histórico de Registros{% endblock %}
 
 {% block content %}
-<div class="LOGIN">
-    <div class="div">
-        <img class="logo-policia-penal" src="{% static 'imagens/logo-policia-penal-540.jpg' %}" alt="Logo">
-        
-        <div class="content" style="flex: 2; max-width: 900px;">
-            <div class="text-wrapper">Histórico de Registros</div>
+<div class="HISTORICO">
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="{%static 'imagens/logo-novo.png' %}" alt="Logo Polícia Penal">
+        </div>
+        <!-- Formulário -->
+        <div class="content">
+            <div class="voltar"><a href="{% url 'menu' %}">Voltar ao Menu</a></div>
+            <h2>Histórico de Registros</h2>
 
-            <form method="get" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; align-items: center;">
-                <input type="date" name="data" value="{{ request.GET.data }}" style="flex: 1; min-width: 150px; padding: 6px;">
+            <!-- Filtros -->
+            <div class="filtros"> 
+                <form method="get">
                 
-                <select name="tipo" style="flex: 1; min-width: 150px; padding: 6px;">
+                <input type="date" name="data" value="{{ request.GET.data }}">
+                <select name="tipo">
                     <option value="">-- Tipo --</option>
                     <option value="Entrada" {% if request.GET.tipo == "Entrada" %}selected{% endif %}>Entrada</option>
                     <option value="Saída" {% if request.GET.tipo == "Saída" %}selected{% endif %}>Saída</option>
                 </select>
-
-                <input type="text" name="veiculo" placeholder="Placa do veículo" value="{{ request.GET.veiculo }}" style="flex: 1; min-width: 150px; padding: 6px;">
-                <input type="text" name="usuario" placeholder="Proprietário" value="{{ request.GET.usuario }}" style="flex: 1; min-width: 150px; padding: 6px;">
-
-                <button type="submit" style="
-                    background-color: #ffdd06;
-                    border: none;
-                    border-radius: 5px;
-                    padding: 6px 12px;
-                    font-weight: bold;
-                    cursor: pointer;
-                    height: 38px;
-                    align-self: stretch;
-                ">Filtrar</button>
-                <a href="{% url 'menu' %}" class="button-box" 
-                    style="
-                    background-color: #ffdd06;
-                    border: none;
-                    border-radius: 5px;
-                    padding: 6px 12px;
-                    font-weight: bold;
-                    cursor: pointer;
-                    height: 38px;
-                    align-self: stretch;">
-                    <span>Voltar ao Menu</span>
-                </a>
-            </form>
-
-            <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; color: #fff; background-color: #252525; text-align: center;">
-                    <thead style="background-color: #333;">
-                        <tr>
-                            <th style="border: 1px solid #555; padding: 10px;">ID</th>
-                            <th style="border: 1px solid #555; padding: 10px;">Data</th>
-                            <th style="border: 1px solid #555; padding: 10px;">Hora</th>
-                            <th style="border: 1px solid #555; padding: 10px;">Tipo</th>
-                            <th style="border: 1px solid #555; padding: 10px;">Veículo</th>
-                            <th style="border: 1px solid #555; padding: 10px;">Proprietário</th>
-                            <th style="border: 1px solid #555; padding: 10px;">Observações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for registro in registros %}
-                        <tr>
-                            <td style="border: 1px solid #555; padding: 8px;">{{ registro.id }}</td>
-                            <td style="border: 1px solid #555; padding: 8px;">{{ registro.data_hora|date:"d/m/Y" }}</td>
-                            <td style="border: 1px solid #555; padding: 8px;">{{ registro.data_hora|date:"H:i:s" }}</td>
-                            <td style="border: 1px solid #555; padding: 8px;">{{ registro.tipo }}</td>
-                            <td style="border: 1px solid #555; padding: 8px;">{{ registro.veiculo.placa }}</td>
-                            <td style="border: 1px solid #555; padding: 8px;">{{ registro.veiculo.proprietario }}</td>
-                            <td style="border: 1px solid #555; padding: 8px;">{{ registro.observacoes }}</td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="7" style="padding: 10px; border: 1px solid #555;">Nenhum registro encontrado.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <input type="text" name="veiculo" placeholder="Placa do veículo" value="{{ request.GET.veiculo }}" id="filtroPlaca">
+                <input type="text" name="usuario" placeholder="Proprietário" value="{{ request.GET.usuario }}" id="filtroProprietario">
+                <button type="submit" class="btn">Filtrar</button>
+                </form>
             </div>
-        </div>
+
+
+            <!-- Tabela-->
+            <table id="tabelaRegistros">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Tipo</th>
+                        <th>Veículo</th>
+                        <th>Proprietário</th>
+                        <th>Observação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for registro in registros %}
+                    <tr>
+                        <td>{{ registro.id }}</td>
+                        <td>{{ registro.data_hora|date:"d/m/Y" }}</td>
+                        <td>{{ registro.data_hora|date:"H:i:s" }}</td>
+                        <td>{{ registro.tipo }}</td>
+                        <td>{{ registro.veiculo.placa }}</td>
+                        <td>{{ registro.veiculo.proprietario }}</td>
+                        <td>{{ registro.observacoes }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td>
+                            <h2>Nenhum Registro Encontrado</h2>
+                        </td>
+                    {% endfor %}
+                    </tr>    
+                </tbody>
+            </table>  
+        </div>         
     </div>
 </div>
 {% endblock %}

@@ -80,14 +80,18 @@ def historico_view(request):
     data = request.GET.get('data')
     tipo = request.GET.get('tipo')
     veiculo = request.GET.get('veiculo')
-    proprietario = request.GET.get('proprietario')
+    proprietario = request.GET.get('usuario')
 
     if data:
         try:
-            data_obj = datetime.strptime(data, "%Y-%m-%d").date()
-            registros = registros.filter(data_hora__date=data_obj)
+            #data_obj = datetime.strptime(data, "%Y-%m-%d").date()
+            # registros = registros.filter(data_hora__date=data_obj)
+            data_inicio = datetime.strptime(data, "%Y-%m-%d")
+            data_fim = data_inicio.replace(hour=23, minute=59, second=59)
+            registros = registros.filter(data_hora__range=(data_inicio, data_fim))
         except ValueError:
             pass
+            
 
     if tipo:
         registros = registros.filter(tipo=tipo)

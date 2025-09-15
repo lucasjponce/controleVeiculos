@@ -36,6 +36,10 @@ class VeiculoForm(forms.ModelForm):
             }),
             'proprietario': forms.TextInput(attrs={'placeholder': 'Proprietário'}),
         }
+        labels ={
+            'placa': 'Placa do Veiculo',
+            'proprietario': 'Nome do Proprietario'
+        }
 
     def __init__(self, *args, **kwargs):
         super(VeiculoForm, self).__init__(*args, **kwargs)
