@@ -485,6 +485,20 @@ body {
   background-color: #4e4a4a;
 }
 
+.HISTORICO .paginacao a {
+  margin-top: 15px;
+  text-align: center;
+}
+
+/*.HISTORICO .paginacao a {
+  position: absolute; 
+  top: 15px;
+  right: 20px;
+  color: #f0b90b;
+  text-decoration: none;
+  font-size: 14px;
+}*/
+
 /* Estilo Registro */
 
 .REGISTRO .container {

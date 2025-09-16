@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for registro in registros %}
+                    {% for registro in page_obj %}
                     <tr>
                         <td>{{ registro.id }}</td>
                         <td>{{ registro.data_hora|date:"d/m/Y" }}</td>
@@ -57,13 +57,24 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td>
-                            <h2>Nenhum Registro Encontrado</h2>
-                        </td>
-                    {% endfor %}
+                        <td> <h2>Nenhum Registro Encontrado</h2> </td>
                     </tr>    
+                    {% endfor %}
                 </tbody>
-            </table>  
+            </table>
+            <!-- Paginação -->  
+            <div class="paginacao">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; Primeiro</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+
+                <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+                {% endif %}
+            </div>
         </div>         
     </div>
 </div>

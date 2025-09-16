@@ -9,6 +9,7 @@ from django.contrib.auth.hashers import make_password
 from django.db.models import Q
 from django.utils.dateparse import parse_date
 from datetime import datetime
+from django.core.paginator import Paginator
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
@@ -102,7 +103,17 @@ def historico_view(request):
         registros = registros.filter(veiculo__proprietario__icontains=proprietario)
 
     registros = registros.order_by('-data_hora')
-    return render(request, 'core/historico.html', {'registros': registros})
+    
+    # paginação (10 registros por página)
+    paginator = Paginator(registros, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+
+    #return render(request, 'core/historico.html', {'registros': registros})
+    print("Tipo filtrado:", tipo)
+    print("Tipos distintos no banco:", Registro.objects.values_list("tipo", flat=True).distinct())
+    return render(request, 'core/historico.html', {'page_obj': page_obj})
 
 def configuracoes_view(request):
     return render(request, 'core/configuracoes.html')
