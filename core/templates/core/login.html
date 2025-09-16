@@ -8,15 +8,14 @@
             <img src="{%static 'imagens/logo-novo.png' %}" alt="Logo Polícia Penal">
         </div>    
     <div class="form-box">
-        <div class="top-link">
+        <!--<div class="top-link">
             <a href="{% url 'menu' %}">Voltar ao Menu</a>
-        </div>
+        </div> -->
         <h2>Login do Usuário</h2>  
-           <!-- {% if error %}
-                <p style="color: rgb(251, 255, 0);">{{ error }}</p>
-                -- forma correta
-                <p class="text-yellow">{{ error }}</p>
-            {% endif %} -->
+        {% if error %}
+            <!--forma correta -->
+            <p>{{ error }}</p>
+        {% endif %}
         <form id="loginForm" method="post">
             {% csrf_token %}
             <label for="cpf">CPF:</label>
