@@ -34,7 +34,7 @@ cd .\controleVeiculos\
 # Crie um ambiente virtual
 python -m venv env
 source env/bin/activate  # Linux/Mac
-env\Scripts\activate     # Windows
+source env\Scripts\activate     # Windows
 
 # Instale as dependências
 pip install -r requirements.txt
