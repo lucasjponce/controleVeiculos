@@ -1,1 +1,1 @@
-web: gunicorn controleVeiculos.wsgi:application
+web: gunicorn controle_veiculos_project.wsgi:application
