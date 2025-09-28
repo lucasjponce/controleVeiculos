@@ -88,21 +88,6 @@ WSGI_APPLICATION = 'controle_veiculos_project.wsgi.application'
 #    }
 #}
 
-#conexão com AIVEN
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'controleacessospi',
-#        'USER': 'avnadmin',
-#        'PASSWORD': 'AVNS_MQNQQA-kqF8yrjJsJLI',
-#        'HOST': 'controleacessospi-mayza942-d355.d.aivencloud.com',
-#        'PORT': '26965',
-#        'OPTIONS': {
-#            'ssl': {'ca': '/ca.pem'}  # certificado fornecido pelo Aiven
-#        }
-#    }
-#}
-
 #  Banco de dados (Aiven MySQL)
 DATABASES = {
     "default": {
