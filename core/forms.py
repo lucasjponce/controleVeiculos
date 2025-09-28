@@ -97,3 +97,19 @@ class UsuarioCadastroForm(forms.ModelForm):
             self.add_error('cpf', "CPF inválido!")
 
         return cleaned_data
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])  # senha criptografada
+
+        # se papel for administrador = superusuario Django
+        if self.cleaned_data.get("papel") == "administrador":
+            user.is_staff = True
+            user.is_superuser = True
+        else:
+            user.is_staff = False
+            user.is_superuser = False
+
+        if commit:
+            user.save()
+        return user

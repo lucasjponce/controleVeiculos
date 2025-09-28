@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-53rg2vr=q41!hq*desegbw#%m_5dv^xze5z2s(5wu#mc#=)--&'
+#SECRET_KEY = 'django-insecure-53rg2vr=q41!hq*desegbw#%m_5dv^xze5z2s(5wu#mc#=)--&'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "chave-provisoria")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*', '.onrender.com']
 
 
 # Application definition
@@ -75,14 +77,44 @@ WSGI_APPLICATION = 'controle_veiculos_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'controleVeiculos',
+#        'USER': 'lucas',
+#        'PASSWORD': '1234',
+#        'HOST': 'localhost',
+#        'PORT': '3306',
+#    }
+#}
+
+#conexão com AIVEN
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'controleacessospi',
+#        'USER': 'avnadmin',
+#        'PASSWORD': 'AVNS_MQNQQA-kqF8yrjJsJLI',
+#        'HOST': 'controleacessospi-mayza942-d355.d.aivencloud.com',
+#        'PORT': '26965',
+#        'OPTIONS': {
+#            'ssl': {'ca': '/ca.pem'}  # certificado fornecido pelo Aiven
+#        }
+#    }
+#}
+
+#  Banco de dados (Aiven MySQL)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'controleVeiculos',
-        'USER': 'lucas',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '3306',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.environ.get("MYSQL_DB", "controleacessospi"),
+        "USER": os.environ.get("MYSQL_USER", "avnadmin"),
+        "PASSWORD": os.environ.get("MYSQL_PASSWORD", "senha_provisoria"),
+        "HOST": os.environ.get("MYSQL_HOST", "controleacessospi-mayza942-d355.d.aivencloud.com"),
+        "PORT": os.environ.get("MYSQL_PORT", "26965"),
+        "OPTIONS": {
+            "ssl": {"ca": "/etc/ssl/certs/ca-certificates.crt"},
+        },
     }
 }
 
@@ -122,6 +154,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Quando rodar collectstatic, os arquivos vão para uma pasta que o Render serve
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

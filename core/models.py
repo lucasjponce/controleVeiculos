@@ -25,7 +25,8 @@ class UsuarioManager(BaseUserManager):
 
 # ===== Modelo de Usuário =====
 class Usuario(AbstractBaseUser, PermissionsMixin):
-    cpf = models.CharField(max_length=14, unique=True, primary_key=True)
+    id = models.BigAutoField(primary_key=True)
+    cpf = models.CharField(max_length=14, unique=True)
     password = models.CharField(max_length=128)  # Use "password" aqui
     papel = models.CharField(max_length=50)
     funcao = models.CharField(max_length=100)
@@ -69,7 +70,7 @@ class Registro(models.Model):
     veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
     usuario = models.ForeignKey(
         Usuario, 
-        to_field='cpf',
+        to_field='id',
         on_delete=models.CASCADE
     )
 
