@@ -98,7 +98,8 @@ DATABASES = {
         "HOST": os.environ.get("MYSQL_HOST", "controleacessospi-mayza942-d355.d.aivencloud.com"),
         "PORT": os.environ.get("MYSQL_PORT", "26965"),
         "OPTIONS": {
-            "ssl": {"ca": "/etc/ssl/certs/ca-certificates.crt"},
+            #"ssl": {"ca": "/etc/ssl/certs/ca-certificates.crt"},
+            "ssl": {"cert_reqs": 0},
         },
     }
 }
