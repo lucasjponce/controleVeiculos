@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+#importação para rodar local
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,11 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-53rg2vr=q41!hq*desegbw#%m_5dv^xze5z2s(5wu#mc#=)--&'
+#SECRET_KEY = ''
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "chave-provisoria")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+# alteração no debug para rodar o sistema local e online
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ['*', '.onrender.com']
 
@@ -92,6 +97,22 @@ WSGI_APPLICATION = 'controle_veiculos_project.wsgi.application'
 #}
 
 #  Banco de dados (Aiven MySQL)
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.mysql",
+#        "NAME": os.environ.get("MYSQL_DB", "controleacessospi"),
+#        "USER": os.environ.get("MYSQL_USER", "avnadmin"),
+#        "PASSWORD": os.environ.get("MYSQL_PASSWORD", "senha_provisoria"),
+#        "HOST": os.environ.get("MYSQL_HOST", "controleacessospi-mayza942-d355.d.aivencloud.com"),
+#        "PORT": os.environ.get("MYSQL_PORT", "26965"),
+#        "OPTIONS": {
+#            #"ssl": {"ca": "/etc/ssl/certs/ca-certificates.crt"},
+#            "ssl": {"cert_reqs": 0},
+#        },
+#    }
+#}
+
+#  Banco de dados (Aiven MySQL + render)
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
