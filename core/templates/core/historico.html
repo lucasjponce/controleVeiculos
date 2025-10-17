@@ -28,6 +28,14 @@
                 <input type="text" name="usuario" placeholder="Proprietário" value="{{ request.GET.usuario }}" id="filtroProprietario">
                 <button type="submit" class="btn">Filtrar</button>
                 </form>
+                <!-- botão para exportar PDF -->
+            <form method="get" action="{% url 'historico_pdf' %}">
+                <input type="hidden" name="data" value="{{ request.GET.data }}">
+                <input type="hidden" name="tipo" value="{{ request.GET.tipo }}">
+                <input type="hidden" name="veiculo" value="{{ request.GET.veiculo }}">
+                <input type="hidden" name="usuario" value="{{ request.GET.usuario }}">
+                <button type="submit" class="btn">Exportar PDF</button>
+            </form>
             </div>
 
 

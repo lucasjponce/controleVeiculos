@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Histórico de Acessos</title>
+  <style>
+    @page { size: A4; margin: 18mm 14mm 18mm 14mm; }
+    body { font-family: DejaVu Sans, Arial, Helvetica, sans-serif; font-size: 12px; }
+    h1 { font-size: 18px; margin: 0 0 6px; }
+    .meta { font-size: 10px; color: #555; margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #999; padding: 6px; vertical-align: top; }
+    th { background: #f1f1f1; text-align: left; }
+    .right { text-align: right; }
+    .small { font-size: 10px; color: #666; }
+    .footer { position: fixed; bottom: -10px; left: 0; right: 0; text-align: center; font-size: 10px; color: #666; }
+    .header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .logo { height: 40px; vertical-align: middle; margin-right: 8px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <!-- Se quiser, habilite o logo e aponte o caminho: -->
+    <!-- <img class="logo" src="{% static 'core/img/logo.png' %}" alt="Logo"> -->
+    <h1>Histórico de Acessos</h1>
+  </div>
+
+  <div class="meta">
+    Gerado em: {{ agora|date:"d/m/Y H:i" }} — Usuário: {{ request.user }}<br>
+    Filtros:
+    {% if filtros.tipo %}Tipo={{ filtros.tipo }}; {% endif %}
+    {% if filtros.data %}Data={{ filtros.data }}; {% endif %}
+    {% if filtros.veiculo %}Veículo={{ filtros.veiculo }}; {% endif %}
+    {% if filtros.usuario %}Usuário={{ filtros.usuario }}; {% endif %}
+    Total de registros: {{ registros|length }}
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Data/Hora</th>
+        <th>Tipo</th>
+        <th>Placa</th>
+        <th>Marca / Modelo</th>
+        <th>Usuário (CPF)</th>
+        <th>Observações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in registros %}
+      <tr>
+        <td class="right">{{ forloop.counter }}</td>
+        <td>{{ r.data_hora|date:"d/m/Y H:i" }}</td>
+        <td>{{ r.tipo }}</td>
+        <td>{{ r.veiculo.placa }}</td>
+        <td>{{ r.veiculo.marca }} / {{ r.veiculo.modelo }}</td>
+        <td>{{ r.usuario.cpf }}</td>
+        <td class="small">{{ r.observacoes }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="7">Nenhum registro encontrado para os filtros aplicados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="footer">
+    Sistema Controle de Veículos
+  </div>
+</body>
+</html>

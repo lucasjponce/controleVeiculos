@@ -14,3 +14,5 @@ sqlparse==0.5.3
 tzdata==2025.2
 urllib3==2.4.0
 whitenoise==6.11.0
+reportlab==4.4.4
+xhtml2pdf==0.2.17

@@ -10,6 +10,12 @@ from django.db.models import Q
 from django.utils.dateparse import parse_date
 from datetime import datetime
 from django.core.paginator import Paginator
+from django.http import HttpResponse
+from django.template.loader import get_template
+from django.utils import timezone
+from xhtml2pdf import pisa
+from .utils.pdf import link_callback
+
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
@@ -136,3 +142,58 @@ def cadastro_usuario_view(request):
     else:
         form = UsuarioCadastroForm()
     return render(request, 'core/cadastro_usuario.html', {'form': form})
+
+#função para aplicar os mesmo filtros do historico
+def _filtrar_registros_pdf(request):
+    registros = Registro.objects.select_related('veiculo', 'usuario').all()
+
+    data = request.GET.get('data')
+    tipo = request.GET.get('tipo')
+    veiculo = request.GET.get('veiculo')
+    proprietario = request.GET.get('usuario')
+
+    if data:
+        try:
+            from datetime import datetime
+            data_inicio = datetime.strptime(data, "%Y-%m-%d")
+            data_fim = data_inicio.replace(hour=23, minute=59, second=59)
+            registros = registros.filter(data_hora__range=(data_inicio, data_fim))
+        except ValueError:
+            pass
+
+    if tipo:
+        registros = registros.filter(tipo=tipo)
+    if veiculo:
+        registros = registros.filter(veiculo__placa__icontains=veiculo)
+    if proprietario:
+        registros = registros.filter(veiculo__proprietario__icontains=proprietario)
+
+    return registros.order_by('-data_hora'), {
+        'data': data, 'tipo': tipo, 'veiculo': veiculo, 'usuario': proprietario
+    }
+# view para gerar o pdf
+@login_required
+def historico_pdf_view(request):
+    registros, filtros = _filtrar_registros_pdf(request)
+
+    template = get_template("core/historico_pdf.html")
+    html = template.render({
+        "registros": list(registros),
+        "filtros": filtros,
+        "agora": timezone.localtime(),
+        "request": request,
+    })
+
+    response = HttpResponse(content_type="application/pdf")
+    response['Content-Disposition'] = 'inline; filename="historico.pdf"'
+
+    pisa_status = pisa.CreatePDF(
+        src=html,
+        dest=response,
+        link_callback=link_callback,
+        encoding='utf-8'
+    )
+
+    if pisa_status.err:
+        return HttpResponse("Erro ao gerar o PDF.", status=500)
+    return response

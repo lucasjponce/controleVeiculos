@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views
 from django.shortcuts import redirect
+from .views import historico_pdf_view
 
 urlpatterns = [
     path('', lambda request: redirect('login'), name='root'),
@@ -12,4 +13,6 @@ urlpatterns = [
     path('configuracoes/', views.configuracoes_view, name='configuracoes'),
     path('cadastro-usuario/', views.cadastro_usuario_view, name='cadastro_usuario'),
     path('menu/', views.menu_view, name='menu'),
+    path('historico/pdf/', historico_pdf_view, name='historico_pdf'),
 ]
+
