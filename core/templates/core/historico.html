@@ -28,7 +28,7 @@
                     <button type="submit" class="btn">Filtrar</button>
                 </form>
                 <!-- container com os botões filtrar e exportar PDF -->
-                <form method="get" action="{% url 'historico_pdf' %}">
+                <form method="get" action="{% url 'historico_pdf' %}" target="_blank" rel="noopener noreferrer">
                             <input type="hidden" name="data" value="{{ request.GET.data }}">
                             <input type="hidden" name="tipo" value="{{ request.GET.tipo }}">
                             <input type="hidden" name="veiculo" value="{{ request.GET.veiculo }}">
