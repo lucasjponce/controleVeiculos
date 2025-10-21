@@ -17,28 +17,25 @@
             <!-- Filtros -->
             <div class="filtros"> 
                 <form method="get">
-                
-                <input type="date" name="data" value="{{ request.GET.data }}">
-                <select name="tipo">
-                    <option value="">-- Tipo --</option>
-                    <option value="Entrada" {% if request.GET.tipo == "Entrada" %}selected{% endif %}>Entrada</option>
-                    <option value="Saída" {% if request.GET.tipo == "Saída" %}selected{% endif %}>Saída</option>
-                </select>
-                <input type="text" name="veiculo" placeholder="Placa do veículo" value="{{ request.GET.veiculo }}" id="filtroPlaca">
-                <input type="text" name="usuario" placeholder="Proprietário" value="{{ request.GET.usuario }}" id="filtroProprietario">
-                <button type="submit" class="btn">Filtrar</button>
+                    <input type="date" name="data" value="{{ request.GET.data }}">
+                    <select name="tipo">
+                        <option value="">-- Tipo --</option>
+                        <option value="Entrada" {% if request.GET.tipo == "Entrada" %}selected{% endif %}>Entrada</option>
+                        <option value="Saída" {% if request.GET.tipo == "Saída" %}selected{% endif %}>Saída</option>
+                    </select>
+                    <input type="text" name="veiculo" placeholder="Placa do veículo" value="{{ request.GET.veiculo }}" id="filtroPlaca">
+                    <input type="text" name="usuario" placeholder="Proprietário" value="{{ request.GET.usuario }}" id="filtroProprietario">
+                    <button type="submit" class="btn">Filtrar</button>
                 </form>
-                <!-- botão para exportar PDF -->
-            <form method="get" action="{% url 'historico_pdf' %}">
-                <input type="hidden" name="data" value="{{ request.GET.data }}">
-                <input type="hidden" name="tipo" value="{{ request.GET.tipo }}">
-                <input type="hidden" name="veiculo" value="{{ request.GET.veiculo }}">
-                <input type="hidden" name="usuario" value="{{ request.GET.usuario }}">
-                <button type="submit" class="btn">Exportar PDF</button>
-            </form>
+                <!-- container com os botões filtrar e exportar PDF -->
+                <form method="get" action="{% url 'historico_pdf' %}">
+                            <input type="hidden" name="data" value="{{ request.GET.data }}">
+                            <input type="hidden" name="tipo" value="{{ request.GET.tipo }}">
+                            <input type="hidden" name="veiculo" value="{{ request.GET.veiculo }}">
+                            <input type="hidden" name="usuario" value="{{ request.GET.usuario }}">
+                            <button type="submit" class="btn">Imprimir Relatório</button>
+                        </form>
             </div>
-
-
             <!-- Tabela-->
             <table id="tabelaRegistros">
                 <thead>
