@@ -151,7 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
 
@@ -164,10 +164,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# teste para evitar o warning no Render: só adiciona STATICFILES_DIRS se a pasta existir localmente
+_extra_static = BASE_DIR / "static"
+if _extra_static.exists():
+    STATICFILES_DIRS = [_extra_static]
+else:
+    STATICFILES_DIRS = []
 
 # Quando rodar collectstatic, os arquivos vão para uma pasta que o Render serve
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 
 # Default primary key field type
